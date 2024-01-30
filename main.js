@@ -1,5 +1,6 @@
 /** @type {HTMLCanvasElement} */
 import Background from './background.js'
+import Ball from './ball.js'
 import InputHandler from './input.js'
 import Player from './player.js'
 
@@ -19,16 +20,22 @@ window.addEventListener('load', function () {
 			this.groundMargin = 40
 			this.gameOver = false
 			this.score = 0
+			this.winningScore = 10
 			this.background = new Background(this)
 			this.player = new Player(this)
 			this.input = new InputHandler(this)
+			this.enemies = []
+			this.balls = [new Ball(this)]
+			this.numOfBalls = 1
 		}
 		update(deltaTime) {
+			this.balls.forEach((ball) => ball.update())
 			this.player.update(this.input.keys)
 		}
 		draw(context) {
 			this.background.draw(context)
 			this.player.draw(context)
+			this.balls.forEach((ball) => ball.draw(context))
 		}
 	}
 
@@ -41,7 +48,9 @@ window.addEventListener('load', function () {
 		ctx.clearRect(0, 0, canvas.width, canvas.height)
 		game.update(deltaTime)
 		game.draw(ctx)
-		requestAnimationFrame(animate)
+		if (!game.gameOver) {
+			requestAnimationFrame(animate)
+		}
 	}
 	animate(0)
 })
