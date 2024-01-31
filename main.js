@@ -4,6 +4,7 @@ import Ball from './ball.js'
 import Block from './block.js'
 import InputHandler from './input.js'
 import Player from './player.js'
+import UI from './ui.js'
 
 window.addEventListener('load', function () {
 	const loading = document.getElementById('loading')
@@ -22,13 +23,15 @@ window.addEventListener('load', function () {
 			this.gameOver = false
 			this.score = 0
 			this.winningScore = 10
+			this.numOfBalls = 1
+			this.bounceSpeed = 10
+			this.fontColor = 'white'
 			this.background = new Background(this)
 			this.player = new Player(this)
 			this.input = new InputHandler(this)
 			this.blocks = []
 			this.balls = [new Ball(this)]
-			this.numOfBalls = 1
-			this.bounceSpeed = 10
+			this.ui = new UI(this)
 		}
 		update(deltaTime) {
 			this.player.update(this.input.keys)
@@ -41,6 +44,7 @@ window.addEventListener('load', function () {
 			this.player.draw(context)
 			this.balls.forEach((ball) => ball.draw(context))
 			this.blocks.forEach((block) => block.draw(context))
+			this.ui.draw(context)
 		}
 		addBlocks() {
 			this.blocks.push(
@@ -61,6 +65,7 @@ window.addEventListener('load', function () {
 	const game = new Game(canvas.width, canvas.height)
 
 	let lastTime = 0
+	let animationId
 	function animate(timeStamp) {
 		const deltaTime = timeStamp - lastTime
 		lastTime = timeStamp
@@ -70,10 +75,10 @@ window.addEventListener('load', function () {
 		if (!game.gameOver) {
 			animationId = requestAnimationFrame(animate)
 		} else {
-			stopAnimation()
+			stopAnimation(animationId)
 		}
 	}
-	function stopAnimation() {
+	function stopAnimation(animationId) {
 		cancelAnimationFrame(animationId)
 	}
 	animate(0)
