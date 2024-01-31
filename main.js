@@ -29,36 +29,55 @@ window.addEventListener('load', function () {
 			this.background = new Background(this)
 			this.player = new Player(this)
 			this.input = new InputHandler(this)
-			this.blocks = []
 			this.balls = [new Ball(this)]
 			this.ui = new UI(this)
+			this.blocks = []
+			this.blockRowCount = 8
+			this.blockColumnCount = 25
+			this.gameOffsetTop = 60
+			this.gameOffsetLeft = 50
+			this.blockOffsetTop = 40
+			this.blockOffsetLeft = 5
+			this.blockWidth = 61
+			this.blockHeight = 28
 		}
 		update(deltaTime) {
 			this.player.update(this.input.keys)
 			this.balls.forEach((ball) => ball.update())
 			this.addBlocks()
-			this.blocks.forEach((block) => block.update())
+			for (let c = 0; c < this.blockColumnCount; c++) {
+				for (let r = 0; r < this.blockRowCount; r++) {
+					this.blocks[c][r].update()
+				}
+			}
 		}
 		draw(context) {
 			this.background.draw(context)
 			this.player.draw(context)
 			this.balls.forEach((ball) => ball.draw(context))
-			this.blocks.forEach((block) => block.draw(context))
+			for (let c = 0; c < this.blockColumnCount; c++) {
+				for (let r = 0; r < this.blockRowCount; r++) {
+					this.blocks[c][r].draw(context)
+				}
+			}
 			this.ui.draw(context)
 		}
 		addBlocks() {
-			this.blocks.push(
-				new Block(this, this.width * 0.7 - 30, 400, 0),
-				new Block(this, this.width * 0.66 - 30, 400, 0),
-				new Block(this, this.width * 0.62 - 30, 400, 0),
-				new Block(this, this.width * 0.58 - 30, 400, 0),
-				new Block(this, this.width * 0.54 - 30, 400, 0),
-				new Block(this, this.width * 0.5 - 30, 400, 0),
-				new Block(this, this.width * 0.46 - 30, 400, 0),
-				new Block(this, this.width * 0.42 - 30, 400, 0),
-				new Block(this, this.width * 0.38 - 30, 400, 0),
-				new Block(this, this.width * 0.34 - 30, 400, 0)
-			)
+			for (let c = 0; c < this.blockColumnCount; c++) {
+				this.blocks[c] = []
+				for (let r = 0; r < this.blockRowCount; r++) {
+					const blockX =
+						c * (this.blockOffsetLeft + this.blockWidth) +
+						this.blockOffsetLeft +
+						this.gameOffsetLeft
+					const blockY =
+						r * (this.blockOffsetTop + this.blockHeight) +
+						this.blockOffsetTop +
+						this.gameOffsetTop
+
+					this.blocks[c][r] = new Block(this, blockX, blockY, r)
+				}
+			}
 		}
 	}
 

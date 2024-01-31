@@ -3,7 +3,7 @@ export default class Ball {
 		this.game = game
 		this.width = 12
 		this.height = 12
-		const initialOffset = 200
+		const initialOffset = 100
 		this.x = (this.game.width - this.width) * 0.5
 		this.y =
 			this.game.height - this.height - this.game.groundMargin - initialOffset
@@ -12,9 +12,10 @@ export default class Ball {
 		this.maxSpeed = 10
 		this.vx = 0
 		this.vy = 0
-		this.weight = 5
+		this.weight = 1
 	}
 	update() {
+		console.log(this)
 		this.y += this.vy
 		this.x += this.vx
 		if (this.y < this.game.height - this.height) {
@@ -43,6 +44,7 @@ export default class Ball {
 		}
 	}
 	draw(context) {
+		context.strokeRect(this.x, this.y, this.width, this.height)
 		context.drawImage(
 			this.image,
 			0,
