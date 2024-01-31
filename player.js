@@ -1,3 +1,5 @@
+import { detectCollision } from './utils.js'
+
 export default class Player {
 	constructor(game) {
 		this.game = game
@@ -43,25 +45,24 @@ export default class Player {
 			const section = 34
 			// middle of paddle
 			if (
-				ball.x > this.x + section &&
 				ball.x < this.x + this.width - section &&
 				ball.x + ball.width > this.x + section &&
-				ball.x + ball.width < this.x + this.width - section &&
+				ball.y < this.x + this.height &&
 				ball.y + ball.height > this.y
 			) {
-				console.log('mid')
-				if (ball.vy === 0) {
+				if (ball.vy <= 0) {
 					ball.vy = -this.game.bounceSpeed
 				} else {
 					ball.vy = -ball.vy
 				}
 			} // left of paddle
 			else if (
-				ball.x > this.x &&
 				ball.x < this.x + this.width - section - midSection &&
+				ball.x + ball.width > this.x &&
+				ball.y < this.y + this.height &&
 				ball.y + ball.height > this.y
 			) {
-				if (ball.vy === 0) {
+				if (ball.vy <= 0) {
 					ball.vy = -this.game.bounceSpeed
 				} else {
 					ball.vy = -ball.vy
@@ -69,11 +70,12 @@ export default class Player {
 				ball.vx = -this.game.bounceSpeed * 0.5
 			} // right of paddle
 			else if (
-				ball.x > this.x + section + midSection &&
 				ball.x < this.x + this.width &&
+				ball.x + ball.width > this.x + section + midSection &&
+				ball.y < this.y + this.height &&
 				ball.y + ball.height > this.y
 			) {
-				if (ball.vy === 0) {
+				if (ball.vy <= 0) {
 					ball.vy = -this.game.bounceSpeed
 				} else {
 					ball.vy = -ball.vy

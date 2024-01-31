@@ -5,6 +5,7 @@ import Block from './block.js'
 import InputHandler from './input.js'
 import Player from './player.js'
 import UI from './ui.js'
+import { filterByProperty } from './utils.js'
 
 window.addEventListener('load', function () {
 	const loading = document.getElementById('loading')
@@ -24,7 +25,7 @@ window.addEventListener('load', function () {
 			this.score = 0
 			this.winningScore = 10
 			this.numOfBalls = 1
-			this.bounceSpeed = 10
+			this.bounceSpeed = 5
 			this.fontColor = 'white'
 			this.background = new Background(this)
 			this.player = new Player(this)
@@ -50,6 +51,12 @@ window.addEventListener('load', function () {
 					this.blocks[c][r].update()
 				}
 			}
+			let filteredBlocks = this.blocks.filter(
+				(block) => !block.markedForDeletion
+			)
+			// console.log(this.blocks.length)
+			this.blocks = filteredBlocks
+			console.log(this.blocks.length)
 		}
 		draw(context) {
 			this.background.draw(context)
