@@ -3,8 +3,10 @@ export default class Ball {
 		this.game = game
 		this.width = 12
 		this.height = 12
+		const initialOffset = 200
 		this.x = (this.game.width - this.width) * 0.5
-		this.y = this.game.height - this.height - this.game.groundMargin - 200
+		this.y =
+			this.game.height - this.height - this.game.groundMargin - initialOffset
 		this.image = document.getElementById('ball')
 		this.speed = 0
 		this.maxSpeed = 10
@@ -23,21 +25,21 @@ export default class Ball {
 		// horizontal boundaries
 		if (this.x < 0) {
 			this.x = 0
-			this.vx = 15
+			this.vx = this.game.bounceSpeed
 		}
 		if (this.x > this.game.width - this.width) {
 			this.x = this.game.width - this.width
-			this.vx = -15
+			this.vx = -this.game.bounceSpeed
 		}
 		// vertical boundaries
 		if (this.y >= this.game.height - this.height) {
-			this.y = this.game.height - this.height
+			this.y = this.game.height + this.height
 			this.vx = 0
 			this.vy = 0
-			this.gameOver = true
+			this.game.gameOver = true
 		}
 		if (this.y < 0) {
-			this.vy = 5
+			this.vy = this.game.bounceSpeed
 		}
 	}
 	draw(context) {

@@ -7,7 +7,7 @@ export default class Player {
 		this.y = this.game.height - this.height - this.game.groundMargin
 		this.image = document.getElementById('paddle')
 		this.speed = 0
-		this.maxSpeed = 20
+		this.maxSpeed = 15
 	}
 	update(input) {
 		this.checkCollision()
@@ -40,39 +40,41 @@ export default class Player {
 	checkCollision() {
 		this.game.balls.forEach((ball) => {
 			// middle of paddle
+			const midSection = 36
+			const section = 34
 			if (
-				ball.x > this.x + 36 &&
-				ball.x < this.x + this.width - 36 &&
+				ball.x > this.x + midSection &&
+				ball.x < this.x + this.width - midSection &&
 				ball.x + ball.width > this.x &&
 				ball.y < this.y + this.height &&
 				ball.y + ball.height > this.y
 			) {
 				if (ball.vx === 0) {
-					ball.vy = -15
+					ball.vy = -this.game.bounceSpeed
 				} else {
-					ball.vy = -15
-					ball.xy *= -1
+					ball.vy = -this.game.bounceSpeed
+					ball.vx *= -1
 				}
 			} // left of paddle
 			else if (
 				ball.x > this.x &&
-				ball.x < this.x + 34 &&
+				ball.x < this.x + section &&
 				ball.x + ball.width > this.x &&
 				ball.y < this.y + this.height &&
 				ball.y + ball.height > this.y
 			) {
-				ball.vy = -15
-				ball.vx = -15
+				ball.vy = -this.game.bounceSpeed
+				ball.vx = -this.game.bounceSpeed
 			} // right of paddle
 			else if (
-				ball.x > this.x + this.width - 34 &&
+				ball.x > this.x + this.width - section &&
 				ball.x < this.x + this.width &&
 				ball.x + ball.width > this.x &&
 				ball.y < this.y + this.height &&
 				ball.y + ball.height > this.y
 			) {
-				ball.vy = -15
-				ball.vx = 15
+				ball.vy = -this.game.bounceSpeed
+				ball.vx = this.game.bounceSpeed
 			}
 		})
 	}
