@@ -25,6 +25,12 @@ export default class Player {
 		if (this.x > this.game.width - this.width) {
 			this.x = this.game.width - this.width
 		}
+		// game restart
+		if (this.game.gameOver) {
+			if (input.includes('Enter')) {
+				this.game.gameOver = false
+			}
+		}
 	}
 	draw(context) {
 		context.drawImage(

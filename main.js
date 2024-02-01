@@ -23,6 +23,7 @@ window.addEventListener('load', function () {
 			this.gameOver = false
 			this.score = 0
 			this.winningScore = 10
+			this.time = 0
 			this.numOfBalls = 1
 			this.bounceSpeed = 5
 			this.fontColor = 'white'
@@ -32,9 +33,12 @@ window.addEventListener('load', function () {
 			this.balls = [new Ball(this)]
 			this.ui = new UI(this)
 			this.blocks = new CreateBlocks(this)
-			
 		}
 		update(deltaTime) {
+			if (this.score === this.winningScore) {
+				this.gameOver = true
+			}
+			this.time += deltaTime
 			this.player.update(this.input.keys)
 			this.balls.forEach((ball) => ball.update())
 			this.blocks.update()
