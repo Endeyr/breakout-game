@@ -45,7 +45,7 @@ export default class Block {
 				console.log('top')
 				ball.vx = -ball.vx
 				this.markedForDeletion = true
-				console.log(this.markedForDeletion)
+				this.game.score++
 			} // bottom of block
 			else if (bottomCollision(ball, this)) {
 				if (ball.vy === 0) {
@@ -53,20 +53,23 @@ export default class Block {
 				} else {
 					ball.vy = -ball.vy
 				}
+				console.log('bottom')
 				ball.vx = -ball.vx
 				this.markedForDeletion = true
-				console.log(this.markedForDeletion)
+				this.game.score++
 			}
 			// left of block
 			else if (leftCollision(ball, this)) {
 				ball.vy = -this.game.bounceSpeed
 				ball.vx = -this.game.bounceSpeed
 				this.markedForDeletion = true
+				this.game.score++
 			} // right of block
 			else if (rightCollision(ball, this)) {
 				ball.vy = -this.game.bounceSpeed
 				ball.vx = this.game.bounceSpeed
 				this.markedForDeletion = true
+				this.game.score++
 			}
 		})
 	}

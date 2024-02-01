@@ -1,11 +1,10 @@
 /** @type {HTMLCanvasElement} */
 import Background from './background.js'
 import Ball from './ball.js'
-import Block from './block.js'
+import CreateBlocks from './createBlocks.js'
 import InputHandler from './input.js'
 import Player from './player.js'
 import UI from './ui.js'
-import { filterByProperty } from './utils.js'
 
 window.addEventListener('load', function () {
 	const loading = document.getElementById('loading')
@@ -32,59 +31,20 @@ window.addEventListener('load', function () {
 			this.input = new InputHandler(this)
 			this.balls = [new Ball(this)]
 			this.ui = new UI(this)
-			this.blocks = []
-			this.blockRowCount = 8
-			this.blockColumnCount = 25
-			this.gameOffsetTop = 60
-			this.gameOffsetLeft = 50
-			this.blockOffsetTop = 40
-			this.blockOffsetLeft = 5
-			this.blockWidth = 61
-			this.blockHeight = 28
+			this.blocks = new CreateBlocks(this)
+			
 		}
 		update(deltaTime) {
 			this.player.update(this.input.keys)
 			this.balls.forEach((ball) => ball.update())
-			this.addBlocks()
-			for (let c = 0; c < this.blockColumnCount; c++) {
-				for (let r = 0; r < this.blockRowCount; r++) {
-					this.blocks[c][r].update()
-				}
-			}
-			let filteredBlocks = this.blocks.filter(
-				(block) => !block.markedForDeletion
-			)
-			// console.log(this.blocks.length)
-			this.blocks = filteredBlocks
-			console.log(this.blocks.length)
+			this.blocks.update()
 		}
 		draw(context) {
 			this.background.draw(context)
 			this.player.draw(context)
 			this.balls.forEach((ball) => ball.draw(context))
-			for (let c = 0; c < this.blockColumnCount; c++) {
-				for (let r = 0; r < this.blockRowCount; r++) {
-					this.blocks[c][r].draw(context)
-				}
-			}
+			this.blocks.draw(context)
 			this.ui.draw(context)
-		}
-		addBlocks() {
-			for (let c = 0; c < this.blockColumnCount; c++) {
-				this.blocks[c] = []
-				for (let r = 0; r < this.blockRowCount; r++) {
-					const blockX =
-						c * (this.blockOffsetLeft + this.blockWidth) +
-						this.blockOffsetLeft +
-						this.gameOffsetLeft
-					const blockY =
-						r * (this.blockOffsetTop + this.blockHeight) +
-						this.blockOffsetTop +
-						this.gameOffsetTop
-
-					this.blocks[c][r] = new Block(this, blockX, blockY, r)
-				}
-			}
 		}
 	}
 
