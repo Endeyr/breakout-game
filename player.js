@@ -28,7 +28,7 @@ export default class Player {
 		// game restart
 		if (this.game.gameOver) {
 			if (input.includes('Enter')) {
-				this.game.gameOver = false
+				this.game.restart()
 			}
 		}
 	}
@@ -44,6 +44,11 @@ export default class Player {
 			this.width,
 			this.height
 		)
+	}
+	reset() {
+		this.x = (this.game.width - this.width) * 0.5
+		this.y = this.game.height - this.height - this.game.groundMargin
+		this.speed = 0
 	}
 	checkCollision() {
 		this.game.balls.forEach((ball) => {
@@ -61,6 +66,7 @@ export default class Player {
 				} else {
 					ball.vy = -ball.vy
 				}
+				ball.vx = ball.vx
 			} // left of paddle
 			else if (
 				ball.x < this.x + this.width - section - midSection &&

@@ -50,26 +50,36 @@ window.addEventListener('load', function () {
 			this.blocks.draw(context)
 			this.ui.draw(context)
 		}
+		restart() {
+			// Reset game to initial values
+			this.gameOver = false
+			this.score = 0
+			this.player.reset()
+			this.balls = [new Ball(this)]
+			this.balls.forEach((ball) => ball.reset())
+			this.blocks = new CreateBlocks(this)
+			this.bounceSpeed = 10
+		}
 	}
 
 	const game = new Game(canvas.width, canvas.height)
 
+	let continueGameLoop = true
 	let lastTime = 0
-	let animationId
 	function animate(timeStamp) {
 		const deltaTime = timeStamp - lastTime
 		lastTime = timeStamp
 		ctx.clearRect(0, 0, canvas.width, canvas.height)
 		game.update(deltaTime)
 		game.draw(ctx)
-		if (!game.gameOver) {
-			animationId = requestAnimationFrame(animate)
-		} else {
-			stopAnimation(animationId)
+		if (continueGameLoop) {
+			requestAnimationFrame(animate)
 		}
 	}
-	function stopAnimation(animationId) {
-		cancelAnimationFrame(animationId)
+	function restartGame() {
+		continueGameLoop = true
+		game.restart()
+		animate(0)
 	}
 	animate(0)
 })

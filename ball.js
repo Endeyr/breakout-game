@@ -3,10 +3,13 @@ export default class Ball {
 		this.game = game
 		this.width = 12
 		this.height = 12
-		const initialOffset = 40
+		this.initialOffset = 40
 		this.x = (this.game.width - this.width) * 0.5
 		this.y =
-			this.game.height - this.height - this.game.groundMargin - initialOffset
+			this.game.height -
+			this.height -
+			this.game.groundMargin -
+			this.initialOffset
 		this.image = document.getElementById('ball')
 		this.speed = 0
 		this.maxSpeed = 10
@@ -55,5 +58,17 @@ export default class Ball {
 			this.width,
 			this.height
 		)
+	}
+	reset() {
+		this.x = (this.game.width - this.width) * 0.5
+		this.y =
+			this.game.height -
+			this.height -
+			this.game.groundMargin -
+			this.initialOffset
+		this.speed = 0
+		this.vx = 0
+		this.vy = 0
+		this.weight = 1
 	}
 }

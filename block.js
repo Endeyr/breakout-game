@@ -60,14 +60,14 @@ export default class Block {
 			else if (leftCollision(ball, this)) {
 				ball.vy = -this.game.bounceSpeed
 				ball.vx = -this.game.bounceSpeed
-				
+
 				this.markedForDeletion = true
 				this.game.score++
 			} // right of block
 			else if (rightCollision(ball, this)) {
 				ball.vy = -this.game.bounceSpeed
 				ball.vx = this.game.bounceSpeed
-				
+
 				this.markedForDeletion = true
 				this.game.score++
 			}
