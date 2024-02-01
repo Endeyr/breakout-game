@@ -5,8 +5,8 @@ export default class CreateBlocks {
 		this.game = game
 		this.blocks = []
 		this.blockCount = 0
-		this.blockRowCount = 1 // 8
-		this.blockColumnCount = 1 // 25
+		this.blockRowCount = 8
+		this.blockColumnCount = 25
 		this.blocksCount = this.blockColumnCount * this.blockRowCount
 		this.gameOffsetTop = 60
 		this.gameOffsetLeft = 50
