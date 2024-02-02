@@ -12,6 +12,7 @@ window.addEventListener('load', function () {
 	// Basic canvas project setup
 	const canvas = document.getElementById('canvas1')
 	const ctx = canvas.getContext('2d')
+	canvas.style.display = 'block'
 	canvas.width = window.innerWidth
 	canvas.height = window.innerHeight
 
@@ -30,8 +31,7 @@ window.addEventListener('load', function () {
 			this.sound = document.getElementById('beep')
 			this.sound.volume = 0.4
 			this.soundGameOver = document.getElementById('beep-gameOver')
-			this.soundGameOver.volume = 0.4
-			this.soundGameOver.loop = false
+			this.soundGameOver.volume = 0.2
 			this.background = new Background(this)
 			this.player = new Player(this)
 			this.input = new InputHandler(this)
@@ -45,7 +45,7 @@ window.addEventListener('load', function () {
 			}
 			if (!this.gameOver) {
 				this.time += deltaTime
-			} 
+			}
 			this.player.update(this.input.keys)
 			this.balls.forEach((ball) => ball.update())
 			this.blocks.update()
