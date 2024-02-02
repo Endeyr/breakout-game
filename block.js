@@ -37,16 +37,17 @@ export default class Block {
 		this.game.balls.forEach((ball) => {
 			// top of block
 			if (topCollision(ball, this)) {
+				this.game.sound.play()
 				if (ball.vy === 0) {
 					ball.vy = -this.game.bounceSpeed
 				} else {
 					ball.vy = -ball.vy
 				}
-
 				this.markedForDeletion = true
 				this.game.score++
 			} // bottom of block
 			else if (bottomCollision(ball, this)) {
+				this.game.sound.play()
 				if (ball.vy === 0) {
 					ball.vy = -this.game.bounceSpeed
 				} else {
@@ -58,16 +59,16 @@ export default class Block {
 			}
 			// left of block
 			else if (leftCollision(ball, this)) {
+				this.game.sound.play()
 				ball.vy = -this.game.bounceSpeed
 				ball.vx = -this.game.bounceSpeed
-
 				this.markedForDeletion = true
 				this.game.score++
 			} // right of block
 			else if (rightCollision(ball, this)) {
+				this.game.sound.play()
 				ball.vy = -this.game.bounceSpeed
 				ball.vx = this.game.bounceSpeed
-
 				this.markedForDeletion = true
 				this.game.score++
 			}

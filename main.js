@@ -27,6 +27,11 @@ window.addEventListener('load', function () {
 			this.numOfBalls = 1
 			this.bounceSpeed = 5
 			this.fontColor = 'white'
+			this.sound = document.getElementById('beep')
+			this.sound.volume = 0.4
+			this.soundGameOver = document.getElementById('beep-gameOver')
+			this.soundGameOver.volume = 0.4
+			this.soundGameOver.loop = false
 			this.background = new Background(this)
 			this.player = new Player(this)
 			this.input = new InputHandler(this)
@@ -38,7 +43,9 @@ window.addEventListener('load', function () {
 			if (this.score === this.winningScore) {
 				this.gameOver = true
 			}
-			this.time += deltaTime
+			if (!this.gameOver) {
+				this.time += deltaTime
+			} 
 			this.player.update(this.input.keys)
 			this.balls.forEach((ball) => ball.update())
 			this.blocks.update()
@@ -54,11 +61,12 @@ window.addEventListener('load', function () {
 			// Reset game to initial values
 			this.gameOver = false
 			this.score = 0
+			this.time = 0
 			this.player.reset()
 			this.balls = [new Ball(this)]
 			this.balls.forEach((ball) => ball.reset())
 			this.blocks = new CreateBlocks(this)
-			this.bounceSpeed = 10
+			this.bounceSpeed = 5
 		}
 	}
 

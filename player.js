@@ -61,6 +61,7 @@ export default class Player {
 				ball.y < this.x + this.height &&
 				ball.y + ball.height > this.y
 			) {
+				this.game.sound.play()
 				if (ball.vy <= 0) {
 					ball.vy = -this.game.bounceSpeed
 				} else {
@@ -74,6 +75,7 @@ export default class Player {
 				ball.y < this.y + this.height &&
 				ball.y + ball.height > this.y
 			) {
+				this.game.sound.play()
 				if (ball.vy <= 0) {
 					ball.vy = -this.game.bounceSpeed
 				} else {
@@ -87,6 +89,7 @@ export default class Player {
 				ball.y < this.y + this.height &&
 				ball.y + ball.height > this.y
 			) {
+				this.game.sound.play()
 				if (ball.vy <= 0) {
 					ball.vy = -this.game.bounceSpeed
 				} else {

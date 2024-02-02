@@ -2,6 +2,8 @@
 
 [Art assets](https://joyrider3774.itch.io/basic-breakout-asset-pack) provided by Joyrider3774.
 
+[Sound asset](https://opengameart.org/content/3-ping-pong-sounds-8-bit-style) provided by Captaincrunch80
+
 # Table of Contents
 
 - [Breakout Game](#breakout-game)

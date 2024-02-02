@@ -27,22 +27,25 @@ export default class Ball {
 		}
 		// horizontal boundaries
 		if (this.x < 0) {
+			this.game.sound.play()
 			this.x = 0
 			this.vx = this.game.bounceSpeed
 		}
 		if (this.x > this.game.width - this.width) {
+			this.game.sound.play()
 			this.x = this.game.width - this.width
 			this.vx = -this.game.bounceSpeed
 		}
 		// vertical boundaries
 		if (this.y >= this.game.height - this.height) {
-			this.y = this.game.height + this.height
+			this.y = this.game.height
 			this.vx = 0
 			this.vy = 0
 			this.game.gameOver = true
 		}
 		// ball bounces off top wall
 		if (this.y < 0) {
+			this.game.sound.play()
 			this.vy = this.game.bounceSpeed
 		}
 	}
